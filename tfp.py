@@ -23,7 +23,7 @@ def bert_embedding(texts, batch_size=100):
     embeddings = torch.cat(all_embeddings, dim=0)
     return embeddings.numpy()
 
-def greedy_tsp(embeddings):
+def tfp_algorithm(embeddings):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     embeddings = torch.tensor(embeddings, dtype=torch.float32, device=device)
 
@@ -94,7 +94,7 @@ def main(input_file, output_file):
         np.save(embedding_file, text_embedding)
         print("Computed and saved embeddings.")
 
-    res = greedy_tsp(text_embedding)
+    res = tfp_algorithm(text_embedding)
 
     reordered_data = [data[index] for index in res]
     with open(output_file, "w") as fp:
